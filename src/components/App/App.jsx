@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import ResourcesPage from '../ResourcesPage/ResourcesPage';
+import PendingPage from '../PendingPage/PendingPage';
 import './App.css';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
+  
   return (
     <Router>
       <div>
@@ -69,12 +71,21 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows Resources else shows LoginPage
             exact
             path="/resources"
           >
             <ResourcesPage />
           </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Pending Questions else shows LoginPage
+            exact
+            path="/pending"
+          >
+            <PendingPage />
+          </ProtectedRoute>
+
           <Route
             exact
             path="/login"

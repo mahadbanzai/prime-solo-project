@@ -32,9 +32,7 @@ function Nav() {
               Pending Questions
             </Link>
 
-            <Link className="navLink" to="/answered">
-              Answered Questions
-            </Link>
+    
 
             <Link className="navLink" to="/resources">
               Resources

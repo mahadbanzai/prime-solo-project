@@ -6,26 +6,20 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
-  let user = req.user;
-  console.log('GET route for Questions!!!')
-  
-  const sqlText = 
-  `SELECT * FROM "questions"
-   WHERE user_id= $1;`
+  const queryText = `
+    SELECT * FROM "questions"
+    INNER JOIN "user" ON
+    questions."user_id" = "user".id
+    WHERE user_id= $1;
+  `;
+  pool.query(queryText)
+    .then((result) => {res.send(result.rows); })
+    .catch((err) => {
+      console.log('Error in GET /api/questions', err);
+      res.sendStatus(500);
+    });
+});
 
-  const sqlValue = [user]
-  
-  pool.query(sqlText, sqlValue)
-  .then((result) => {
-  res.send(result.rows)
-  })
-  .catch((err) => {
-    console.log('ERROR IN GETTING!!!', err)
-    res.sendStatus(500)
-  })
-  
-  
-  })
 
 /**
  * POST route template

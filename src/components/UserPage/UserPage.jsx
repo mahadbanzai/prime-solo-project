@@ -1,18 +1,26 @@
 import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 function UserPage() {
   const dispatch = useDispatch()
   const user = useSelector((store) => store.user);
-  const subject = useSelector((store)=> store.questions)
+  const userQuestions = useSelector((store)=> store.questions)
 
   const [question, setQuestion] = useState('')
   const [confusion, setConfusion] = useState('')
+
+  useEffect(()=> {
+    dispatch ({
+      type: 'FETCH_QUESTIONS'
+    })
+  })
+
   const addQuestion = (event) => {
     event.preventDefault()
     dispatch({
-      type: 'FETCH_QUESTIONS',
+      type: 'FETCH_QUESTIONS_INPUT',
       payload: {
         question: question,
         confusion: confusion
